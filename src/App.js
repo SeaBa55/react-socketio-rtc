@@ -29,6 +29,7 @@ function App() {
     iceCandidatePoolSize: 10,
   };
 
+  const [reactLogo, setReactLogo] = useState("App-logo")
   const [callInput, setCallInput] = useState("");
   const [mediaState, setMediaState] = useState("getUserMedia");
   const [avState, setAvState] = useState({ 
@@ -60,6 +61,8 @@ function App() {
   
   // 1. Get User Media Stream, and Instantiate/Configure RTC PeerConnection
   const startCam = async () => {
+
+    setReactLogo("App-logo-spins");
 
     pc.current = new RTCPeerConnection(servers);
 
@@ -93,12 +96,16 @@ function App() {
       });
     };
 
-    console.log("New Local Peer Connection Object:")
-    console.log(pc.current)
+    console.log("New Local Peer Connection Object:");
+    console.log(pc.current);
+
+    setReactLogo("App-logo");
   };
 
   // 2. Create an offer
   const newCall = async () => {
+
+    setReactLogo("App-logo-spins");
 
     // toggle button states
     setDisableState((prevState) => {
@@ -154,12 +161,16 @@ function App() {
       });
     });
 
-    console.log(pc.current)
-    console.log(pc.current.ontrack)
+    console.log(pc.current);
+    console.log(pc.current.ontrack);
+
+    setReactLogo("App-logo");
   };
 
   // 3. Answer the call with the unique ID
   const answerCall = async () => {
+
+    setReactLogo("App-logo-spins");
 
     // toggle button states
     setDisableState((prevState) => {
@@ -205,11 +216,16 @@ function App() {
       });
     });
 
-    console.log(pc.current)
-    console.log(pc.current.ontrack)
+    console.log(pc.current);
+    console.log(pc.current.ontrack);
+
+    setReactLogo("App-logo");
   };
 
   const hangupCall = async () => {
+
+    setReactLogo("App-logo-spins");
+
     console.log("Hangingup Call...")
     pc.current.close();
     pc.current.onicecandidate = null;
@@ -227,6 +243,8 @@ function App() {
         hangup: true
       }
     });
+
+    setReactLogo("App-logo");
   };
 
   const handleRadio = (event) => {
@@ -263,7 +281,7 @@ function App() {
           [name]: checked
         }
       });
-    }
+    };
   };
 
   return (
@@ -274,7 +292,7 @@ function App() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={logo} className={reactLogo} alt="logo" />
       </a>
       
       <div className="videos">
@@ -315,30 +333,39 @@ function App() {
           <label htmlFor="screen">Screen</label>
         </div>
 
-        <div>
-          <input 
-            type="checkbox"
-            id="video"
-            name="video"
-            onChange={handleCheck}
-            checked={avState.video}
-            disabled={disableState.startMedia || mediaState==="getDisplayMedia"}
-          />
-          <label htmlFor="video">video</label>
-        </div>
+        <div className='streamOptions' id="checkBoxes">
+          {
+          mediaState==="getUserMedia"
+          ?
+          <>
+            <div>
+              <input 
+                type="checkbox"
+                id="video"
+                name="video"
+                onChange={handleCheck}
+                checked={avState.video}
+                disabled={disableState.startMedia || mediaState==="getDisplayMedia"}
+              />
+              <label htmlFor="video">video</label>
+            </div>
 
-        <div>
-          <input 
-            type="checkbox"
-            id="audio"
-            name="audio"
-            onChange={handleCheck} 
-            checked={avState.audio}
-            disabled={disableState.startMedia || mediaState==="getDisplayMedia"}
-          />
-          <label htmlFor="horns">audio</label>
+            <div>
+              <input 
+                type="checkbox"
+                id="audio"
+                name="audio"
+                onChange={handleCheck} 
+                checked={avState.audio}
+                disabled={disableState.startMedia || mediaState==="getDisplayMedia"}
+              />
+              <label htmlFor="horns">audio</label>
+            </div>
+          </>
+          :
+          <></>
+          }
         </div>
-
         <button
           className="btn btn-info btn-block"
           type="button"
@@ -346,7 +373,7 @@ function App() {
           onClick={startCam}
           disabled={disableState.startMedia}
         >
-          Start {mediaState==="getUserMedia"? "Webcam" : "Capture"}
+          Start {mediaState==="getUserMedia" ? "Webcam" : "Capture"}
         </button>
       </div>
 
@@ -362,7 +389,6 @@ function App() {
       </button>
       
       <h5>Join a Call</h5>
-      
       <input 
         id="callInput" 
         type="text"
@@ -392,7 +418,6 @@ function App() {
       >
         Hangup
       </button>
-
     </div>
   );
 }

@@ -19,7 +19,7 @@ input {
   font-style: italic;
 }
 
-.App-logo {
+.App-logo, .App-logo-spins{
   height: 10vmin;
   pointer-events: none;
 }
@@ -28,6 +28,11 @@ input {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+
+  .App-logo-spins {
+    animation: App-logo-spins infinite 1s linear;
+  }
+
 }
 
 @keyframes App-logo-spin {
@@ -36,6 +41,15 @@ input {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes App-logo-spins {
+  from {
+    transform: rotate(-10deg);
+  }
+  to {
+    transform: rotate(-360deg);
   }
 }
 
@@ -51,6 +65,7 @@ video {
 
 h3, h5 {
   margin-bottom: 0px;
+  margin-top: 20px;
 }
 
 .videos {
@@ -66,4 +81,10 @@ h3, h5 {
   border: solid;
   border-radius: 10px;
   padding: 8px;
+}
+
+#checkBoxes {
+  padding: 0px;
+  border-width: 1px;
+  font-size: 15px;
 }
