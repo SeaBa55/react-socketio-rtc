@@ -226,7 +226,7 @@ function App() {
 
     setReactLogo("App-logo-spins");
 
-    console.log("Hangingup Call...")
+    console.log("Hangingup Call...");
     pc.current.close();
     pc.current.onicecandidate = null;
     pc.current.ontrack = null;
